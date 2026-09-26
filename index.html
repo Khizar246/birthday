@@ -317,14 +317,19 @@
       .letter-body { font-size: 15px; line-height: 1.65; }
       .gift-shell { align-self: start; padding-top: 12px; }
       .gift-shell h2 { font-size: clamp(38px, 12vw, 52px); }
-      .gift-stage { height: 620px; }
-      .gift-card { width: min(72vw, 260px); min-width: 0; }
-      #puppyCard { top: 27%; left: 50%; transform: translate(-50%, -50%); }
+      .gift-stage { height: 560px; }
+      .gift-card { width: min(58vw, 220px); min-width: 0; }
+      #puppyCard { top: 25%; left: 50%; transform: translate(-50%, -50%); }
       #whiskyCard { top: 74%; left: 50%; transform: translate(-50%, -50%); }
       #whiskyCard.is-running { transform: none; }
+      #whiskyCard.is-tiny { width: 145px; }
+      #whiskyCard.is-tiny .gift-card-text { height: 64px; padding: 6px 8px; }
+      #whiskyCard.is-tiny strong { font-size: 17px; }
+      #whiskyCard.is-tiny span { font-size: 10px; }
       .gift-card img { aspect-ratio: 4 / 3; }
-      .gift-card-text { height: 96px; padding: 10px 14px; }
-      .gift-card strong { font-size: 22px; }
+      .gift-card-text { height: 84px; padding: 8px 10px; }
+      .gift-card strong { font-size: 20px; }
+      .gift-card-text > span { font-size: 13px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -415,6 +420,7 @@
     let whiskyAttempts = 0;
     let whiskyRunning = false;
     let touchMoveHandled = false;
+    let puppyBlockedUntil = 0;
 
     const excuses = [
       'Nice try. The bottle has trust issues. \u{1F943}',
@@ -452,6 +458,7 @@
     function resetWhisky() {
       whiskyAttempts = 0;
       whiskyRunning = false;
+      puppyBlockedUntil = 0;
       giftStage.appendChild(whiskyCard);
       whiskyCard.classList.remove('is-running', 'is-tiny');
       whiskyCard.removeAttribute('style');
@@ -494,10 +501,20 @@
         y: movingRect.top + movingRect.height / 2
       };
       const dangerPoint = pointer || currentCenter;
-      const candidates = Array.from({ length: 36 }, () => ({
+      const anchorCandidates = [
+        { x: minX, y: minY },
+        { x: maxX, y: minY },
+        { x: minX, y: maxY },
+        { x: maxX, y: maxY },
+        { x: (minX + maxX) / 2, y: minY },
+        { x: (minX + maxX) / 2, y: maxY },
+        { x: minX, y: (minY + maxY) / 2 },
+        { x: maxX, y: (minY + maxY) / 2 }
+      ];
+      const candidates = [...anchorCandidates, ...Array.from({ length: 60 }, () => ({
         x: minX + Math.random() * Math.max(0, maxX - minX),
         y: minY + Math.random() * Math.max(0, maxY - minY)
-      })).map(candidate => {
+      }))].map(candidate => {
         const centerX = candidate.x + movingRect.width / 2;
         const centerY = candidate.y + movingRect.height / 2;
         const pointerDistance = Math.hypot(centerX - dangerPoint.x, centerY - dangerPoint.y);
@@ -514,13 +531,22 @@
         candidate.x + movingRect.width / 2 - currentCenter.x,
         candidate.y + movingRect.height / 2 - currentCenter.y
       )));
-      const farEnough = candidates.filter(candidate =>
+      const puppyRect = puppyCard.getBoundingClientRect();
+      const puppyClearance = viewportWidth < 600 ? 18 : 24;
+      const safeCandidates = candidates.filter(candidate => !(
+        candidate.x < puppyRect.right + puppyClearance &&
+        candidate.x + movingRect.width > puppyRect.left - puppyClearance &&
+        candidate.y < puppyRect.bottom + puppyClearance &&
+        candidate.y + movingRect.height > puppyRect.top - puppyClearance
+      ));
+      const farEnough = safeCandidates.filter(candidate =>
         candidate.travelDistance >= furthestPossible * .55 &&
         candidate.pointerDistance >= Math.max(movingRect.width, movingRect.height) * .8
       );
-      const choices = farEnough.length ? farEnough : candidates
+      const choices = farEnough.length ? farEnough : safeCandidates
         .sort((a, b) => b.travelDistance - a.travelDistance)
         .slice(0, 6);
+      if (!choices.length) return;
       const destination = choices[Math.floor(Math.random() * choices.length)];
 
       whiskyCard.style.left = `${destination.x}px`;
@@ -555,7 +581,14 @@
       resetWhisky();
     });
 
-    puppyCard.addEventListener('click', () => celebrate('puppy'));
+    puppyCard.addEventListener('click', event => {
+      if (Date.now() < puppyBlockedUntil) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      celebrate('puppy');
+    });
 
     whiskyCard.addEventListener('pointerenter', event => {
       if (event.pointerType !== 'touch') {
@@ -567,6 +600,7 @@
       if (event.pointerType === 'touch' || event.pointerType === 'pen') {
         event.preventDefault();
         touchMoveHandled = true;
+        puppyBlockedUntil = Date.now() + 800;
         moveWhisky(true, { x: event.clientX, y: event.clientY });
         window.setTimeout(() => { touchMoveHandled = false; }, 350);
       }
