@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#721f35">
   <meta name="description" content="A birthday surprise for Ananya Majumdar">
   <title>Happy Birthday, Ananya!</title>
@@ -39,16 +39,22 @@
       background-size: 28px 28px;
       font-family: "DM Sans", Arial, sans-serif;
       overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
     }
 
     button { font: inherit; }
 
     .screen {
+      min-height: 100vh;
       min-height: 100svh;
       width: 100%;
       display: grid;
       place-items: center;
-      padding: clamp(22px, 5vw, 64px) 18px;
+      padding:
+        calc(clamp(22px, 5vw, 64px) + env(safe-area-inset-top))
+        calc(18px + env(safe-area-inset-right))
+        calc(clamp(22px, 5vw, 64px) + env(safe-area-inset-bottom))
+        calc(18px + env(safe-area-inset-left));
       position: relative;
       overflow: hidden;
     }
@@ -291,11 +297,27 @@
     @keyframes shake { 25% { transform: translateX(-7px); } 50% { transform: translateX(7px); } 75% { transform: translateX(-4px); } }
     .shake { animation: shake .28s ease; }
 
+    @media (min-width: 661px) and (max-width: 900px) {
+      .letter { padding: 68px 52px 48px; }
+      .letter-body { font-size: 16px; line-height: 1.7; }
+      .gift-shell { width: 100%; }
+      .gift-stage { height: 520px; }
+      .gift-card { width: 250px; min-width: 0; }
+      #whiskyCard { left: calc(89% - 250px); }
+    }
+
     @media (max-width: 660px) {
-      .letter { padding-top: 72px; }
+      .screen {
+        padding-left: calc(12px + env(safe-area-inset-left));
+        padding-right: calc(12px + env(safe-area-inset-right));
+      }
+      .letter { padding: 70px 22px 34px; }
       .letter::before { top: 18px; right: 20px; }
+      h1 { font-size: clamp(42px, 14vw, 60px); line-height: 1; }
+      .letter-body { font-size: 15px; line-height: 1.65; }
       .gift-shell { align-self: start; padding-top: 12px; }
-      .gift-stage { height: 650px; }
+      .gift-shell h2 { font-size: clamp(38px, 12vw, 52px); }
+      .gift-stage { height: 620px; }
       .gift-card { width: min(72vw, 260px); min-width: 0; }
       #puppyCard { top: 27%; left: 50%; transform: translate(-50%, -50%); }
       #whiskyCard { top: 74%; left: 50%; transform: translate(-50%, -50%); }
@@ -319,18 +341,18 @@
       <span class="rose-corner bottom" aria-hidden="true"></span>
       <div class="letter-wrap fade-in">
         <article class="letter">
-          <h1 id="birthdayTitle">Happy birthday, Ananya! ðŸ¥‚</h1>
+          <h1 id="birthdayTitle">Happy birthday, Ananya! &#x1F942;</h1>
           <div class="letter-body">
-            <p>I hope this year brings you everything you wish for, and plenty of reasons to laugh along the way. âœ¨</p>
-            <p>Iâ€™ll admit it: I was always a little scared of you (tbh, I still am ðŸ˜‚). But you are also one of the sweetest and most caring people I know, and I truly mean that.</p>
-            <p>I loved spending time with you in Hyderabad, trying and judging biryani everywhere we went. Thanks to you, I actually got to explore so many places too. ðŸ›</p>
-            <p>I never thought we would become such good friends, simply because tum aur main kitne opposite hain lol. But Iâ€™m really glad we did, and honestly, the credit goes to you. Thank you mujhe jhelne ke liye. ðŸ˜Œ</p>
-            <p>Actually, I can thank you for a lot: for Hyderabad, for helping me with the integration, for the birthday gift, for the PwC referral, and for constantly pushing your managers for me. I donâ€™t say it enough, but I appreciate all of it. Seriously, a lot. And of course, thank you for making my boring life funnier and far more interesting.</p>
-            <p>I hope we stay friends like this for a very, very long time, and get to spend some time together in person again. ðŸ¤</p>
-            <p class="last-line">Bas, aur jhooth nahi bol sakta main. Upar wala paap chadhayega. ðŸ˜‡</p>
-            <p>Bye-bye, happy birthday again! Now donâ€™t forget to choose your present on the next screen. ðŸŽ</p>
+            <p>I hope this year brings you everything you wish for, and plenty of reasons to laugh along the way. &#x2728;</p>
+            <p>I&rsquo;ll admit it: I was always a little scared of you (tbh, I still am &#x1F602;). But you are also one of the sweetest and most caring people I know, and I truly mean that.</p>
+            <p>I loved spending time with you in Hyderabad, trying and judging biryani everywhere we went. Thanks to you, I actually got to explore so many places too. &#x1F35B;</p>
+            <p>I never thought we would become such good friends, simply because tum aur main kitne opposite hain lol. But I&rsquo;m really glad we did, and honestly, the credit goes to you. Thank you mujhe jhelne ke liye. &#x1F60C;</p>
+            <p>Actually, I can thank you for a lot: for Hyderabad, for helping me with the integration, for the birthday gift, for the PwC referral, and for constantly pushing your managers for me. I don&rsquo;t say it enough, but I appreciate all of it. Seriously, a lot. And of course, thank you for making my boring life funnier and far more interesting.</p>
+            <p>I hope we stay friends like this for a very, very long time, and get to spend some time together in person again. &#x1F90D;</p>
+            <p class="last-line">Bas, aur jhooth nahi bol sakta main. Upar wala paap chadhayega. &#x1F607;</p>
+            <p>Bye-bye, happy birthday again! Now don&rsquo;t forget to choose your present on the next screen. &#x1F381;</p>
           </div>
-          <button class="primary-button" id="openGifts" type="button">Choose my present <span aria-hidden="true">â†’</span></button>
+          <button class="primary-button" id="openGifts" type="button">Choose my present <span aria-hidden="true">&rarr;</span></button>
         </article>
       </div>
     </section>
@@ -367,10 +389,10 @@
       <span class="rose-corner top" aria-hidden="true"></span>
       <span class="rose-corner bottom" aria-hidden="true"></span>
       <div class="result-panel fade-in">
-        <div class="result-icon" id="resultIcon" aria-hidden="true">ðŸ¶</div>
+        <div class="result-icon" id="resultIcon" aria-hidden="true">&#x1F436;</div>
         <h2 id="resultTitle">Excellent choice.</h2>
         <p id="resultCopy">Your Labrador puppy has been emotionally dispatched.</p>
-        <p class="punchline">Donâ€™t worry. I know what you actually want. Happy birthday, Ananya! ðŸ¥ƒðŸ¤</p>
+        <p class="punchline">Don&rsquo;t worry. I know what you actually want. Happy birthday, Ananya! &#x1F943;&#x1F90D;</p>
         <button class="final-button" id="playAgain" type="button">Choose again</button>
       </div>
     </section>
@@ -395,8 +417,8 @@
     let touchMoveHandled = false;
 
     const excuses = [
-      'Nice try. The bottle has trust issues. ðŸ¥ƒ',
-      'Too slow. Perhaps the puppy is more your speed? ðŸ¶',
+      'Nice try. The bottle has trust issues. \u{1F943}',
+      'Too slow. Perhaps the puppy is more your speed? \u{1F436}',
       'The whisky has left the chat.',
       'Your liver quietly moved that one.',
       'This website strongly recommends personal growth.',
@@ -405,21 +427,21 @@
       'The bottle saw you coming.',
       'Access denied by the birthday committee.',
       'Whisky privileges temporarily suspended.',
-      'Nope. Hydration first. ðŸ’§',
+      'Nope. Hydration first. \u{1F4A7}',
       'The single malt has developed legs.',
-      'Not today, Your Highness. ðŸ‘‘',
+      'Not today, Your Highness. \u{1F451}',
       'Have you considered cuddles instead?',
       'The bottle would like some personal space.',
       'Faster, Ananya. Much faster.',
       'The spirits have fled.',
       'Destiny says Labrador. Sorry.',
       'Your favourite is playing hard to get.',
-      'Request denied with love. ðŸ¤',
+      'Request denied with love. \u{1F90D}',
       'The bottle values its independence.',
       'This choice appears to be cursed.',
       'Almost. Emotionally, at least.',
       'A very graceful attempt. Still no.',
-      'At this point, the puppy feels ignored. ðŸ¶'
+      'At this point, the puppy feels ignored. \u{1F436}'
     ];
 
     function showScreen(next) {
@@ -438,7 +460,12 @@
 
     function moveWhisky(countAttempt = true, pointer = null) {
       const cardRect = whiskyCard.getBoundingClientRect();
-      const margin = window.innerWidth < 600 ? 10 : 18;
+      const visualViewport = window.visualViewport;
+      const viewportWidth = visualViewport ? visualViewport.width : window.innerWidth;
+      const viewportHeight = visualViewport ? visualViewport.height : window.innerHeight;
+      const viewportLeft = visualViewport ? visualViewport.offsetLeft : 0;
+      const viewportTop = visualViewport ? visualViewport.offsetTop : 0;
+      const margin = viewportWidth < 600 ? 10 : 18;
 
       if (countAttempt) whiskyAttempts += 1;
       if (whiskyAttempts >= 200) {
@@ -458,16 +485,18 @@
       if (whiskyAttempts >= 1) whiskyCard.classList.add('is-tiny');
 
       const movingRect = whiskyCard.getBoundingClientRect();
-      const maxX = Math.max(margin, window.innerWidth - movingRect.width - margin);
-      const maxY = Math.max(margin, window.innerHeight - movingRect.height - margin);
+      const minX = viewportLeft + margin;
+      const minY = viewportTop + margin;
+      const maxX = Math.max(minX, viewportLeft + viewportWidth - movingRect.width - margin);
+      const maxY = Math.max(minY, viewportTop + viewportHeight - movingRect.height - margin);
       const currentCenter = {
         x: movingRect.left + movingRect.width / 2,
         y: movingRect.top + movingRect.height / 2
       };
       const dangerPoint = pointer || currentCenter;
       const candidates = Array.from({ length: 36 }, () => ({
-        x: margin + Math.random() * Math.max(0, maxX - margin),
-        y: margin + Math.random() * Math.max(0, maxY - margin)
+        x: minX + Math.random() * Math.max(0, maxX - minX),
+        y: minY + Math.random() * Math.max(0, maxY - minY)
       })).map(candidate => {
         const centerX = candidate.x + movingRect.width / 2;
         const centerY = candidate.y + movingRect.height / 2;
@@ -477,9 +506,9 @@
       });
 
       const furthestPossible = Math.max(...[
-        { x: margin, y: margin },
-        { x: maxX, y: margin },
-        { x: margin, y: maxY },
+        { x: minX, y: minY },
+        { x: maxX, y: minY },
+        { x: minX, y: maxY },
         { x: maxX, y: maxY }
       ].map(candidate => Math.hypot(
         candidate.x + movingRect.width / 2 - currentCenter.x,
@@ -501,15 +530,15 @@
 
     function celebrate(choice = 'puppy') {
       if (choice === 'whisky') {
-        resultIcon.textContent = 'ðŸ¥ƒ';
+        resultIcon.textContent = '\u{1F943}';
         resultTitle.textContent = 'Okay, fine.';
         resultCopy.textContent = 'The birthday girl deserves whisky too. You earned this one.';
-        resultPunchline.textContent = 'Persistence wins. Happy birthday, Ananya! ðŸ¥ƒðŸ¤';
+        resultPunchline.textContent = 'Persistence wins. Happy birthday, Ananya! \u{1F943}\u{1F90D}';
       } else {
-        resultIcon.textContent = 'ðŸ¶';
+        resultIcon.textContent = '\u{1F436}';
         resultTitle.textContent = 'Excellent choice.';
         resultCopy.textContent = 'Your Labrador puppy has been emotionally dispatched.';
-        resultPunchline.textContent = 'Donâ€™t worry. I know what you actually want. Happy birthday, Ananya! ðŸ¥ƒðŸ¤';
+        resultPunchline.textContent = 'Don\'t worry. I know what you actually want. Happy birthday, Ananya! \u{1F943}\u{1F90D}';
       }
       showScreen(resultScreen);
       launchConfetti();
