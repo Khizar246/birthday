@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#721f35">
+  <meta name="description" content="A birthday surprise for Ananya Majumdar">
+  <title>Happy Birthday, Ananya!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #fffaf0;
+      --paper: #fffdf8;
+      --ink: #241a1d;
+      --muted: #6f6064;
+      --wine: #721f35;
+      --wine-dark: #48111f;
+      --green: #173f37;
+      --gold: #c69a43;
+      --line: rgba(72, 17, 31, .17);
+      --shadow: 0 24px 70px rgba(55, 24, 31, .18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(114, 31, 53, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(114, 31, 53, .035) 1px, transparent 1px),
+        var(--ivory);
+      background-size: 28px 28px;
+      font-family: "DM Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button { font: inherit; }
+
+    .screen {
+      min-height: 100svh;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: clamp(22px, 5vw, 64px) 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen[hidden] { display: none; }
+
+    .rose-corner {
+      position: absolute;
+      width: min(30vw, 300px);
+      aspect-ratio: 1;
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    .rose-corner::before,
+    .rose-corner::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(23, 63, 55, .27);
+      border-radius: 70% 0;
+      transform: rotate(36deg);
+    }
+
+    .rose-corner::before { inset: 20% 8% 35% 30%; }
+    .rose-corner::after { inset: 43% 30% 12% 12%; transform: rotate(-28deg); }
+    .rose-corner.top { top: -80px; right: -70px; }
+    .rose-corner.bottom { bottom: -90px; left: -70px; transform: rotate(180deg); }
+
+    .letter-wrap {
+      width: min(760px, 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter {
+      position: relative;
+      padding: clamp(34px, 7vw, 76px) clamp(24px, 7vw, 78px) clamp(30px, 6vw, 62px);
+      background: var(--paper);
+      border: 1px solid rgba(198, 154, 67, .62);
+      box-shadow: var(--shadow), inset 0 0 0 8px var(--paper), inset 0 0 0 9px rgba(198, 154, 67, .2);
+    }
+
+    .letter::before {
+      content: "AM";
+      position: absolute;
+      top: 24px;
+      right: 26px;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: var(--wine);
+      font-family: "Italiana", Georgia, serif;
+      font-size: 17px;
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    h1, h2 {
+      font-family: "Italiana", Georgia, serif;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 610px;
+      margin-bottom: 26px;
+      color: var(--wine-dark);
+      font-size: clamp(46px, 9vw, 82px);
+      line-height: .96;
+    }
+
+    .letter-body {
+      max-width: 620px;
+      color: #3c3033;
+      font-size: clamp(15px, 2vw, 17px);
+      line-height: 1.78;
+    }
+
+    .letter-body p { margin-bottom: 17px; }
+
+    .letter-body .last-line {
+      margin-top: 27px;
+      margin-bottom: 28px;
+      color: var(--wine);
+      font-weight: 700;
+    }
+
+    .primary-button,
+    .final-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 4px;
+      color: white;
+      background: var(--wine);
+      box-shadow: 0 7px 0 var(--wine-dark);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .primary-button:hover,
+    .final-button:hover { background: #842941; transform: translateY(-2px); box-shadow: 0 9px 0 var(--wine-dark); }
+    .primary-button:active,
+    .final-button:active { transform: translateY(5px); box-shadow: 0 2px 0 var(--wine-dark); }
+    button:focus-visible { outline: 3px solid #1f83a6; outline-offset: 4px; }
+
+    .gift-screen { align-content: center; }
+
+    .gift-shell {
+      width: min(920px, 100%);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .gift-shell h2 {
+      margin-bottom: 8px;
+      color: var(--wine-dark);
+      font-size: clamp(38px, 7vw, 66px);
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 0 auto 24px;
+      color: var(--muted);
+      font-size: clamp(14px, 2vw, 17px);
+    }
+
+    .status {
+      min-height: 30px;
+      margin-bottom: 10px;
+      color: var(--wine);
+      font-weight: 700;
+    }
+
+    .gift-stage {
+      width: 100%;
+      height: clamp(430px, 58vh, 560px);
+      min-height: 430px;
+      position: relative;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 50px rgba(55, 24, 31, .11);
+      overflow: hidden;
+    }
+
+    .gift-card {
+      position: absolute;
+      top: 50%;
+      width: min(34vw, 286px);
+      min-width: 230px;
+      padding: 0;
+      border: 1px solid rgba(72, 17, 31, .18);
+      border-radius: 6px;
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(39, 23, 28, .15);
+      overflow: hidden;
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition: box-shadow .2s ease, transform .2s ease, left .25s cubic-bezier(.2,.8,.2,1), top .25s cubic-bezier(.2,.8,.2,1), width .2s ease;
+      touch-action: manipulation;
+    }
+
+    .gift-card:hover { box-shadow: 0 22px 48px rgba(39, 23, 28, .22); }
+    .gift-card img { display: block; width: 100%; aspect-ratio: 4 / 3.7; object-fit: cover; }
+    .gift-card-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 120px;
+      padding: 12px 18px;
+      text-align: center;
+    }
+    .gift-card strong { display: block; margin-bottom: 4px; color: var(--wine-dark); font-family: "Italiana", Georgia, serif; font-size: 26px; font-weight: 400; line-height: 1.15; }
+    .gift-card-text > span {
+      display: block;
+      color: #55474b;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    #puppyCard { left: 11%; }
+    #whiskyCard { left: calc(89% - min(34vw, 286px)); }
+    #whiskyCard.is-running {
+      position: fixed;
+      z-index: 12;
+      transform: none;
+    }
+    #whiskyCard.is-tiny { width: 180px; min-width: 0; }
+    #whiskyCard.is-tiny .gift-card-text { height: 78px; padding: 8px 12px; }
+    #whiskyCard.is-tiny strong { font-size: 19px; }
+    #whiskyCard.is-tiny span { font-size: 11px; }
+
+    .back-button {
+      margin-top: 20px;
+      padding: 8px 12px;
+      border: 0;
+      color: var(--muted);
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+
+    .result-panel {
+      width: min(610px, 100%);
+      padding: clamp(34px, 7vw, 68px);
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      background: var(--paper);
+      border: 1px solid rgba(198, 154, 67, .7);
+      box-shadow: var(--shadow), inset 0 0 0 8px var(--paper), inset 0 0 0 9px rgba(198, 154, 67, .2);
+    }
+
+    .result-icon { margin-bottom: 10px; font-size: 50px; }
+    .result-panel h2 { margin-bottom: 16px; color: var(--wine-dark); font-size: clamp(38px, 7vw, 62px); line-height: 1; }
+    .result-panel p { margin: 0 auto 12px; max-width: 470px; line-height: 1.7; color: var(--muted); }
+    .result-panel .punchline { margin: 22px auto 28px; color: var(--green); font-weight: 700; }
+
+    .confetti {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .fade-in { animation: reveal .65s ease both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shake { 25% { transform: translateX(-7px); } 50% { transform: translateX(7px); } 75% { transform: translateX(-4px); } }
+    .shake { animation: shake .28s ease; }
+
+    @media (max-width: 660px) {
+      .letter { padding-top: 72px; }
+      .letter::before { top: 18px; right: 20px; }
+      .gift-shell { align-self: start; padding-top: 12px; }
+      .gift-stage { height: 650px; }
+      .gift-card { width: min(72vw, 260px); min-width: 0; }
+      #puppyCard { top: 27%; left: 50%; transform: translate(-50%, -50%); }
+      #whiskyCard { top: 74%; left: 50%; transform: translate(-50%, -50%); }
+      #whiskyCard.is-running { transform: none; }
+      .gift-card img { aspect-ratio: 4 / 3; }
+      .gift-card-text { height: 96px; padding: 10px 14px; }
+      .gift-card strong { font-size: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+  <main>
+    <section class="screen" id="letterScreen" aria-labelledby="birthdayTitle">
+      <span class="rose-corner top" aria-hidden="true"></span>
+      <span class="rose-corner bottom" aria-hidden="true"></span>
+      <div class="letter-wrap fade-in">
+        <article class="letter">
+          <h1 id="birthdayTitle">Happy birthday, Ananya! ðŸ¥‚</h1>
+          <div class="letter-body">
+            <p>I hope this year brings you everything you wish for, and plenty of reasons to laugh along the way. âœ¨</p>
+            <p>Iâ€™ll admit it: I was always a little scared of you (tbh, I still am ðŸ˜‚). But you are also one of the sweetest and most caring people I know, and I truly mean that.</p>
+            <p>I loved spending time with you in Hyderabad, trying and judging biryani everywhere we went. Thanks to you, I actually got to explore so many places too. ðŸ›</p>
+            <p>I never thought we would become such good friends, simply because tum aur main kitne opposite hain lol. But Iâ€™m really glad we did, and honestly, the credit goes to you. Thank you mujhe jhelne ke liye. ðŸ˜Œ</p>
+            <p>Actually, I can thank you for a lot: for Hyderabad, for helping me with the integration, for the birthday gift, for the PwC referral, and for constantly pushing your managers for me. I donâ€™t say it enough, but I appreciate all of it. Seriously, a lot. And of course, thank you for making my boring life funnier and far more interesting.</p>
+            <p>I hope we stay friends like this for a very, very long time, and get to spend some time together in person again. ðŸ¤</p>
+            <p class="last-line">Bas, aur jhooth nahi bol sakta main. Upar wala paap chadhayega. ðŸ˜‡</p>
+            <p>Bye-bye, happy birthday again! Now donâ€™t forget to choose your present on the next screen. ðŸŽ</p>
+          </div>
+          <button class="primary-button" id="openGifts" type="button">Choose my present <span aria-hidden="true">â†’</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen gift-screen" id="giftScreen" aria-labelledby="giftTitle" hidden>
+      <span class="rose-corner top" aria-hidden="true"></span>
+      <span class="rose-corner bottom" aria-hidden="true"></span>
+      <div class="gift-shell fade-in">
+        <h2 id="giftTitle">Pick your birthday present</h2>
+        <p class="subtitle">The system is completely fair and definitely not biased.</p>
+        <p class="status" id="status" aria-live="polite">Choose wisely, birthday girl.</p>
+        <div class="gift-stage" id="giftStage">
+          <button class="gift-card" id="puppyCard" type="button" aria-label="Choose the Labrador puppy">
+            <img src="assets/labrador.jpeg" alt="An adorable Labrador puppy">
+            <span class="gift-card-text">
+              <strong>Labrador puppy</strong>
+              <span>Unlimited affection. Forever loyal.</span>
+            </span>
+          </button>
+
+          <button class="gift-card" id="whiskyCard" type="button" aria-label="Try to choose the single malt whisky">
+            <img src="assets/single-malt.jpeg" alt="An elegant bottle of single malt whisky">
+            <span class="gift-card-text">
+              <strong>Single malt</strong>
+              <span>Obviously, your favourite.</span>
+            </span>
+          </button>
+        </div>
+        <button class="back-button" id="backToLetter" type="button">Read the message again</button>
+      </div>
+    </section>
+
+    <section class="screen" id="resultScreen" aria-labelledby="resultTitle" hidden>
+      <span class="rose-corner top" aria-hidden="true"></span>
+      <span class="rose-corner bottom" aria-hidden="true"></span>
+      <div class="result-panel fade-in">
+        <div class="result-icon" id="resultIcon" aria-hidden="true">ðŸ¶</div>
+        <h2 id="resultTitle">Excellent choice.</h2>
+        <p id="resultCopy">Your Labrador puppy has been emotionally dispatched.</p>
+        <p class="punchline">Donâ€™t worry. I know what you actually want. Happy birthday, Ananya! ðŸ¥ƒðŸ¤</p>
+        <button class="final-button" id="playAgain" type="button">Choose again</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const letterScreen = document.querySelector('#letterScreen');
+    const giftScreen = document.querySelector('#giftScreen');
+    const resultScreen = document.querySelector('#resultScreen');
+    const giftStage = document.querySelector('#giftStage');
+    const whiskyCard = document.querySelector('#whiskyCard');
+    const puppyCard = document.querySelector('#puppyCard');
+    const status = document.querySelector('#status');
+    const resultIcon = document.querySelector('#resultIcon');
+    const resultTitle = document.querySelector('#resultTitle');
+    const resultCopy = document.querySelector('#resultCopy');
+    const resultPunchline = document.querySelector('.punchline');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let whiskyAttempts = 0;
+    let whiskyRunning = false;
+    let touchMoveHandled = false;
+
+    const excuses = [
+      'Nice try. The bottle has trust issues. ðŸ¥ƒ',
+      'Too slow. Perhaps the puppy is more your speed? ðŸ¶',
+      'The whisky has left the chat.',
+      'Your liver quietly moved that one.',
+      'This website strongly recommends personal growth.',
+      'Fine motor skills: pending approval.',
+      'Okay, now the bottle is just showing off.',
+      'The bottle saw you coming.',
+      'Access denied by the birthday committee.',
+      'Whisky privileges temporarily suspended.',
+      'Nope. Hydration first. ðŸ’§',
+      'The single malt has developed legs.',
+      'Not today, Your Highness. ðŸ‘‘',
+      'Have you considered cuddles instead?',
+      'The bottle would like some personal space.',
+      'Faster, Ananya. Much faster.',
+      'The spirits have fled.',
+      'Destiny says Labrador. Sorry.',
+      'Your favourite is playing hard to get.',
+      'Request denied with love. ðŸ¤',
+      'The bottle values its independence.',
+      'This choice appears to be cursed.',
+      'Almost. Emotionally, at least.',
+      'A very graceful attempt. Still no.',
+      'At this point, the puppy feels ignored. ðŸ¶'
+    ];
+
+    function showScreen(next) {
+      [letterScreen, giftScreen, resultScreen].forEach(screen => { screen.hidden = screen !== next; });
+      window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
+
+    function resetWhisky() {
+      whiskyAttempts = 0;
+      whiskyRunning = false;
+      giftStage.appendChild(whiskyCard);
+      whiskyCard.classList.remove('is-running', 'is-tiny');
+      whiskyCard.removeAttribute('style');
+      status.textContent = 'Choose wisely, birthday girl.';
+    }
+
+    function moveWhisky(countAttempt = true, pointer = null) {
+      const cardRect = whiskyCard.getBoundingClientRect();
+      const margin = window.innerWidth < 600 ? 10 : 18;
+
+      if (countAttempt) whiskyAttempts += 1;
+      if (whiskyAttempts >= 200) {
+        celebrate('whisky');
+        return;
+      }
+      whiskyRunning = true;
+
+      if (!whiskyCard.classList.contains('is-running')) {
+        giftScreen.appendChild(whiskyCard);
+        whiskyCard.style.left = `${cardRect.left}px`;
+        whiskyCard.style.top = `${cardRect.top}px`;
+        void whiskyCard.offsetWidth;
+      }
+
+      whiskyCard.classList.add('is-running');
+      if (whiskyAttempts >= 1) whiskyCard.classList.add('is-tiny');
+
+      const movingRect = whiskyCard.getBoundingClientRect();
+      const maxX = Math.max(margin, window.innerWidth - movingRect.width - margin);
+      const maxY = Math.max(margin, window.innerHeight - movingRect.height - margin);
+      const currentCenter = {
+        x: movingRect.left + movingRect.width / 2,
+        y: movingRect.top + movingRect.height / 2
+      };
+      const dangerPoint = pointer || currentCenter;
+      const candidates = Array.from({ length: 36 }, () => ({
+        x: margin + Math.random() * Math.max(0, maxX - margin),
+        y: margin + Math.random() * Math.max(0, maxY - margin)
+      })).map(candidate => {
+        const centerX = candidate.x + movingRect.width / 2;
+        const centerY = candidate.y + movingRect.height / 2;
+        const pointerDistance = Math.hypot(centerX - dangerPoint.x, centerY - dangerPoint.y);
+        const travelDistance = Math.hypot(centerX - currentCenter.x, centerY - currentCenter.y);
+        return { ...candidate, pointerDistance, travelDistance };
+      });
+
+      const furthestPossible = Math.max(...[
+        { x: margin, y: margin },
+        { x: maxX, y: margin },
+        { x: margin, y: maxY },
+        { x: maxX, y: maxY }
+      ].map(candidate => Math.hypot(
+        candidate.x + movingRect.width / 2 - currentCenter.x,
+        candidate.y + movingRect.height / 2 - currentCenter.y
+      )));
+      const farEnough = candidates.filter(candidate =>
+        candidate.travelDistance >= furthestPossible * .55 &&
+        candidate.pointerDistance >= Math.max(movingRect.width, movingRect.height) * .8
+      );
+      const choices = farEnough.length ? farEnough : candidates
+        .sort((a, b) => b.travelDistance - a.travelDistance)
+        .slice(0, 6);
+      const destination = choices[Math.floor(Math.random() * choices.length)];
+
+      whiskyCard.style.left = `${destination.x}px`;
+      whiskyCard.style.top = `${destination.y}px`;
+      status.textContent = excuses[(whiskyAttempts - 1) % excuses.length];
+    }
+
+    function celebrate(choice = 'puppy') {
+      if (choice === 'whisky') {
+        resultIcon.textContent = 'ðŸ¥ƒ';
+        resultTitle.textContent = 'Okay, fine.';
+        resultCopy.textContent = 'The birthday girl deserves whisky too. You earned this one.';
+        resultPunchline.textContent = 'Persistence wins. Happy birthday, Ananya! ðŸ¥ƒðŸ¤';
+      } else {
+        resultIcon.textContent = 'ðŸ¶';
+        resultTitle.textContent = 'Excellent choice.';
+        resultCopy.textContent = 'Your Labrador puppy has been emotionally dispatched.';
+        resultPunchline.textContent = 'Donâ€™t worry. I know what you actually want. Happy birthday, Ananya! ðŸ¥ƒðŸ¤';
+      }
+      showScreen(resultScreen);
+      launchConfetti();
+    }
+
+    document.querySelector('#openGifts').addEventListener('click', () => {
+      showScreen(giftScreen);
+      resetWhisky();
+    });
+
+    document.querySelector('#backToLetter').addEventListener('click', () => showScreen(letterScreen));
+    document.querySelector('#playAgain').addEventListener('click', () => {
+      showScreen(giftScreen);
+      resetWhisky();
+    });
+
+    puppyCard.addEventListener('click', () => celebrate('puppy'));
+
+    whiskyCard.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'touch') {
+        moveWhisky(true, { x: event.clientX, y: event.clientY });
+      }
+    });
+
+    whiskyCard.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+        event.preventDefault();
+        touchMoveHandled = true;
+        moveWhisky(true, { x: event.clientX, y: event.clientY });
+        window.setTimeout(() => { touchMoveHandled = false; }, 350);
+      }
+    });
+
+    whiskyCard.addEventListener('click', event => {
+      event.preventDefault();
+      if (!touchMoveHandled) {
+        const pointer = event.detail > 0 ? { x: event.clientX, y: event.clientY } : null;
+        moveWhisky(true, pointer);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (whiskyRunning) moveWhisky(false);
+    });
+
+    function launchConfetti() {
+      const canvas = document.querySelector('#confetti');
+      const context = canvas.getContext('2d');
+      const colors = ['#721f35', '#173f37', '#c69a43', '#f2c8d3', '#ffffff'];
+      const pieces = Array.from({ length: reducedMotion ? 35 : 120 }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: -20 - Math.random() * window.innerHeight * .45,
+        size: 5 + Math.random() * 8,
+        speed: 2 + Math.random() * 4,
+        drift: -1.5 + Math.random() * 3,
+        rotation: Math.random() * Math.PI,
+        spin: -.1 + Math.random() * .2,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      }));
+
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      context.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      let frame = 0;
+      function draw() {
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        pieces.forEach(piece => {
+          piece.y += piece.speed;
+          piece.x += piece.drift;
+          piece.rotation += piece.spin;
+          context.save();
+          context.translate(piece.x, piece.y);
+          context.rotate(piece.rotation);
+          context.fillStyle = piece.color;
+          context.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size * .65);
+          context.restore();
+        });
+        frame += 1;
+        if (frame < (reducedMotion ? 70 : 210)) requestAnimationFrame(draw);
+        else context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
+      draw();
+    }
+  </script>
+</body>
+</html>
+
